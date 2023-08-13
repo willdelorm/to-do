@@ -1,13 +1,317 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+/* https://dribbble.com/shots/21027833-Todo-App-Mobile-UI */
+
+:root {
+  --primary: #fcfcfc;
+  --on-primary: #3d3d3d;
+  --on-primary-alt: #ababab;
+  --accent: #2C71EB;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+*:focus {
+  outline: 3px solid var(--accent);
+  outline-offset: 0;
+}
+
+button {
+  border: none;
+  margin: 0;
+  padding: 0;
+  width: auto;
+  overflow: visible;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  line-height: normal;
+  -webkit-font-smoothing: inherit;
+  -moz-osx-font-smoothing: inherit;
+  appearance: none;
+}
+
+button::-moz-focus-inner {
+  border: 0;
+}
+
+button,
+input {
+  font-family: inherit;
+  font-size: 100%;
+  margin: 0;
+  overflow: visible;
+}
+
+input[type="text"] {
+  border-radius: 0;
+  border: none;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+/* GLOBAL STYLES */
+.btn-group {
+  display: flex;
+  justify-content: space-between;
+}
+
+.btn-group > * {
+  flex: 1 1 49%;
+}
+
+.btn-group > * + * {
+  margin-left: 0.8rem;
+}
+
+.btn {
+  padding: 0.8rem 1rem 0.7rem;
+  border: 2px solid var(--accent);
+  border-radius: 0.5em;
+  cursor: pointer;
+  text-transform: capitalize;
+}
+
+.btn__primary {
+  color: #fff;
+  background-color: var(--accent);
+  border-color: var(--accent);
+}
+
+.btn__danger {
+  color: red;
+}
+
+.btn__outline_primary {
+  color: var(--accent);
+  background: transparent;
+  border-color: var(--accent);
+}
+
+[class*="stack"] > * {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.stack-small > * + * {
+  margin-top: 2rem;
+}
+
+.stack-large > * + * {
+  margin-top: 2rem;
+}
+
+.stack-exception {
+  margin-top: 1rem;
+}
+
+.visually-hidden {
+  position: absolute !important;
+  height: 1px;
+  width: 1px;
+  overflow: hidden;
+  clip: rect(1px 1px 1px 1px);
+  clip: rect(1px, 1px, 1px, 1px);
+  white-space: nowrap;
+}
+/* END GLOBAL STYLES */
+
+body {
+  margin: 0 auto;
+  font: 16px/1.25 Helvetica, sans-serif;
+  background-color: var(--accent);
+  color: var(--on-primary);
+}
+
+.app {
+  background: var(--primary);
+  height: 100vh;
+  max-width: 36rem;
+  margin: 0 auto;
+  padding: 2rem 1rem 4rem;
+  position: relative;
+}
+
+/* HEADER STYLES */
+.header {
+  margin-bottom: 1.25em;
+}
+
+h2 {
+  font-size: 1.25em;
+  margin-bottom: 0.25em;
+}
+
+.date {
+  color: var(--on-primary-alt);
+}
+
+/* FILTER STYLES */
+.filters {
+  display: flex;
+  gap: 2em;
+}
+
+.filter-btn {
+  font-weight: bold;
+}
+
+.filter-btn[aria-pressed="true"] {
+  color: var(--accent);
+}
+
+/* TO DO ITEM STYLES */
+.todo {
+  background-color: #fff;
+  padding: 1em;
+  border-radius: 0.5em;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  display: flex;
+}
+
+/* CHECKBOX STYLES */
+.cb {
+  display: block;
+  position: relative;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.cb input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+.cm {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 1.5em;
+  width: 1.5em;
+  background-color: var(--on-primary-alt);
+  border: 2px solid #fff;
+  border-radius: 50%;
+}
+
+.cb:hover input ~ .cm {
+  background-color: var(--on-primary);
+}
+
+.cb input:focus ~ .cm {
+  border: 2px solid var(--accent);
+}
+
+.cb input:checked ~ .cm {
+  background-color: var(--accent);
+}
+
+.cm:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+.cb input:checked ~ .cm:after {
+  display: block;
+}
+
+.cb .cm:after {
+  left: 7px;
+  top: 4px;
+  width: 5px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 2px 2px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+
+.todo-label {
+  margin-left: 2em;
+  font-size: 1.1em;
+  font-weight: bold;
+}
+
+/* NEW TASK STYLES */
+.new-task-button {
+  position: absolute;
+  bottom: 2em;
+  right: 2em;
+  z-index: 10;
+}
+
+.btn__circle {
+  border-radius: 50%;
+  font-size: 2rem;
+  padding: 0.3rem 0.9rem;
+  height: 50px;
+  width: 50px;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+}
+
+.form-overlay {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.24);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+form {
+  background-color: #fff;
+  padding: 1.2em;
+  width: 100%;
+  margin: 1em;
+  border-radius: 0.8em;
+  z-index: 100;
+}
+
+.form-group {
+  margin-bottom: 1em;
+}
+
+.form-group input[type="text"] {
+  display: block;
+  padding: 0.5em;
+  border: 1px solid var(--on-primary-alt);
+  border-radius: 8px;
+  margin: 0.25em auto;
+  width: 100%;
+}
+
+.form-group input[type="text"]:focus {
+  box-shadow: inset 0 0 0 2px var(--on-primary-alt);
+}
+
+.form-header {
+  display: flex;
+  justify-content: space-between;
+}
+
+@media screen and (min-width: 576px) {
+  .app {
+    height: 100%;
+    margin: 4rem auto;
+    border-radius: 1rem;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  }
 }
