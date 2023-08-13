@@ -144,7 +144,7 @@ Distributed under the MIT License. See `LICENSE.txt` for more information.
 <!-- CONTACT -->
 ## Contact
 
-Your Name - willdelorm@gmail.com
+Will Delorm - willdelorm@gmail.com
 
 Project Link: [https://github.com/willdelorm/to-do](https://github.com/willdelorm/to-do)
 
